@@ -5,7 +5,7 @@ describe "Creating todo lists" do
 		options[:title] ||= "My todo list"
 		options[:description] ||= "This is my todo list."
 
-		visit "/todo_lists"
+		visit "/tasks"
 		click_link "New Todo list"
 		expect(page).to have_content("New todo_list")
 
@@ -22,57 +22,52 @@ describe "Creating todo lists" do
 	end
 	
 	it "displays an error when the todo list has no title" do
-		expect(TodoList.count).to eq(0)
+		expect(Task.count).to eq(0)
 
-		create_todo_list title: ""
+		create_task title: ""
 
 		
 		expect(page).to have_content("error")
-		expect(TodoList.count).to eq(0)
+		expect(Task.count).to eq(0)
 
-		visit "/todo_lists"
+		visit "/tasks"
 		expect(page).to_not have_content("This is what I need to do today.")
 	end
 
 	it "displays an error when the todo list has has a title less than 3 characters" do
-		expect(TodoList.count).to eq(0)
+		expect(Task.count).to eq(0)
 		
-		create_todo_list title: "Hi"
+		create_task title: "Hi"
 
 		expect(page).to have_content("error")
-		expect(TodoList.count).to eq(0)
+		expect(Task.count).to eq(0)
 
-		visit "/todo_lists"
+		visit "/tasks"
 		expect(page).to_not have_content("This is what I need to do today.")
 	end
 
 	it "displays an error when the todo list has has no description" do
-		expect(TodoList.count).to eq(0)
+		expect(Task.count).to eq(0)
 		
-		create_todo_list description: ""
+		create_todo_list title: "Shopping list", description: ""
 
 		expect(page).to have_content("error")
 		expect(TodoList.count).to eq(0)
 
-		visit "/todo_lists"
-		expect(page).to_not have_content("Shopping list.")
+		visit "/tasks"
+		expect(page).to_not have_content("Shopping list")
 	end
 
 	it "displays an error when the todo list has has no description" do
 		expect(TodoList.count).to eq(0)
-		visit "/todo_lists"
-		click_link "New Todo list"
-		expect(page).to have_content("New todo_list")
-
-		fill_in "Title", with: "Shopping list"
-		fill_in "Description", with: "kiwi"
-		click_button "Create Todo list"
+		
+		create_todo_list title: "Shopping list", description: "kiwi"
 
 		expect(page).to have_content("error")
 		expect(TodoList.count).to eq(0)
 
 		visit "/todo_lists"
-		expect(page).to_not have_content("Shopping list.")
+		expect(page).to_not have_content("Shopping list")
 	end
 
 end
