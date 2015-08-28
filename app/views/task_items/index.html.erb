@@ -3,7 +3,9 @@
 
 <ul class="task_items">
 	<% @task.task_items.each do |task_item| %>
-	<li><%= task_item.content %>
+	<li id="<%= dom_id(task_item) %>">
+		<%= task_item.content %>
+		<%= link_to "Edit", edit_task_task_item_path(task_item) %>
 	</li>
 	<% end %>
 </ul>

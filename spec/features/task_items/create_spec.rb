@@ -21,6 +21,22 @@ describe "Adding task items" do
 		end
 	end
 
+	it "displays an error with no content" do
+		visit_task(task)
+		click_link "New Todo Item"
+		fill_in "Content", with: ""
+		click_button "Save"
+		within("div.flash") do
+			expect(page).to have_content("There was a problem adding that todo list item.")
+		end
+		expect(page).to have_content("Content can't be blank")
+	end
 
-
+	it "displays an error with no content less than 2 characters long" do
+		visit_task(task)
+		click_link "New Todo Item"
+		fill_in "Content", with: ""
+		click_button "Save"
+		within("div.flash") do
+			expect(page).to have_content("There was a problem adding that todo list item.")
 end
