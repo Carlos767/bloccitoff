@@ -1,5 +1,5 @@
 <h1><%= @task.title %></h1>
-<p>Find me in app/views/task_items/index.html.erb</p>
+
 
 <ul class="task_items">
 	<% @task.task_items.each do |task_item| %>
@@ -7,3 +7,7 @@
 	</li>
 	<% end %>
 </ul>
+
+<p>
+	<%= link_to "New Todo Item", new_task_task_item_path %>
+</p>
