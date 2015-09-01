@@ -13,4 +13,22 @@ describe "Editing task items" do
 		task_item.reload
 		expect(task_item.completed_at).to_not be_nil
 	end
+
+	context "with completed items" do
+		let!(complete_task_item) {task.task.items.create(content: "Bacon", completed:)}
+
+		it "shows completed items as completed" do
+			visit_task task
+			within dom_id_for(completed_task_item) do
+				expect(page).to have_content(completed_task_item.completed_at)
+			end
+		end
+
+		it "shows does not give the option to mark complete" do
+			visit_task task
+			within dom_id_for(completed_task_item) do
+				expect(page).to_not have_content("Mark Complete")
+			end
+		end
+	end
 end
