@@ -1,15 +1,13 @@
 class TaskItemsController < ApplicationController
+  before action :find_task
   def index
-  	@task = TodoList.find(params[:task_id])
   end
 
   def new
-  	@task = TodoList.find(params[:task_id])
   	@task_item = @task.task_items.new
   end
 
   def create
-  	@task = TodoList.find(params[:task_id])
   	@task_item = @task.task_items.new(task_item_params)
   	if @task_item.save
   		flash[:success = "Added task item."]
@@ -36,6 +34,17 @@ class TaskItemsController < ApplicationController
       render action: :edit
     end
   end
+
+  def destroy
+    @task_item = @task.task_items.find(params[:id])
+    if @task_item.udestroy
+      flash[:success = "Todo Task was deleted."]
+    else
+      flash[:error] = "That todo task could not be deleted."
+    end
+    redirect_to task_task_items_path
+  end
+  
 
   def url_options
     { task_id: params[:task_id] }.merge(super)

@@ -1,11 +1,10 @@
 class Task < ActiveRecord::Base
 	has_many :task_items
+	#belongs_to :user
 
 
-	validates :title, presence: true
-	validates :title, length: { minimum: 3 }
-	validates :description, presence: true
-	validates :description, length: { minimum: 5 }
+	validates :title, presence: true, length: { minimum: 3 }
+	validates :description, presence: true,length: { minimum: 5 }
 end
 
 # view
