@@ -5,6 +5,7 @@
 	<% @task.task_items.each do |task_item| %>
 	<li id="<%= dom_id(task_item) %>">
 		<%= task_item.content %>
+		<%= link_to "Mark Complete", complete_task_task_item_path(task_item), method: :patch %>
 		<%= link_to "Edit", edit_task_task_item_path(task_item) %>
 		<%= link_to "Delete", task_task_item_path(task_item), method: delete:, data: { confirm: "Are you sure?" }  %>
 	</li>

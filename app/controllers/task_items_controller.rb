@@ -45,6 +45,12 @@ class TaskItemsController < ApplicationController
     redirect_to task_task_items_path
   end
   
+  def complete
+    @task_item = @task.task_items.find(params[:id])
+    @task_item.update_attribute(:completed_at, Time.now)
+    redirect_to task_task_items_path, notice: "Todo item marked as complete."
+  end
+
 
   def url_options
     { task_id: params[:task_id] }.merge(super)
