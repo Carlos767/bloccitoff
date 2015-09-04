@@ -1,14 +1,26 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @task.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
+<h2><%= @task.description %></h2>
 
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
+<% if @task.has_incomplete_items? %>
+<h3>Incomplete Items:</h3>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
+<ul>
+	<% @task.task_items.incomplete.each do |task_item| %>
+	<li><%= task_item.content %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<% if @task.has_completed_items? %>
+<h3>Complete Items:</h3>
+
+<ul>
+	<% @task.task_items.complete.each do |task_item| %>
+	<li><%= task_item.content %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<%= link_to 'Change', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

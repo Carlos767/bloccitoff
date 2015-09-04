@@ -12,9 +12,11 @@ class TasksController < ApplicationController
   def show
   end
 
+  def back
+  end
   # GET /tasks/new
   def new
-    @task = Task.new
+    @task = Task.task_items.new
   end
 
   # GET /tasks/1/edit
@@ -25,8 +27,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
-#@task.expires_at = Time.now + 7.days
+    @task.expires_at = Time.now + 7.days
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
@@ -72,4 +73,4 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :description)
     end
-end
+  end

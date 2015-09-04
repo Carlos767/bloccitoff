@@ -17,7 +17,7 @@
         <td><%= task.title %></td>
         <td><%= task.description %></td>
         <td>
-            <% link_to "List Items", task_items_path(task) %>
+            <%= link_to "List Items", task_task_items_path(task) %>
             <%= link_to 'Show', task %>
             <%= link_to 'Edit', edit_task_path(task) %>
             <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
