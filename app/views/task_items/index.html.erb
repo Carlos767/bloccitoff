@@ -1,15 +1,14 @@
-<h1><%= Todo Lists %></h1>
+<h1></h1>
 
 
 <% @tasks.each do |task| %>
-<div class="task" id="<%= dom_id(task_item) %>">
-	<h2<%= task.title %></h2>
-	<p><%= task.description %></p>
+<div class="task" id="<%= dom_id(task) %>">
+	<h2><%= task.content %></h2>
 	<ul class= "functions">
-		<li><%= link_to "List Items", task_task_items_path(task_item) %></li>
-		<li><%= link_to 'Show', task %></li>
-		<li><%= link_to 'Edit', edit_task_task_path(task) %></li>
-		<li><%= link_to "Destroy", task, method: delete:, data: { confirm: "Are you sure?" }  %></li>
+		<li>Expires in <%= distance_of_time_in_words_to_now(task.expires_at)%></li>
+		<li><%= link_to 'Edit', edit_task_task_item_path(task) %></li>
+		<li><%= link_to "Destroy", [task.task, task], method: :delete, data: { confirm: "Are you sure?" }  %></li>
+		<li><%= link_to "Task", task.task %></li>
 	</ul>
 	<br class="clear" />
 </div>

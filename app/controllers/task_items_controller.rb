@@ -1,18 +1,20 @@
 class TaskItemsController < ApplicationController
-  before action :find_task
+  before_action :find_task, only: [:show, :edit, :update]
   
   def index
-    @task =TodoList.find(params[:task_id])
+    @task =Task.find(params[:task_id])
+    @tasks = @task.task_items
   end
 
   def new
-    @task =TodoList.find(params[:task_id])
+    @task =TaskItem.find(params[:task_id])
   	@task_item = @task.task_items.new
   end
 
   def create
-  	@task = TodoList.find(params[:task_id])
+  	@task =Task.find(params[:task_id])
     @task_item = @task.task_items.new(task_item_params)
+    @task_item.expires_at = Time.now + 7.days
   	if @task_item.save
   		flash[:success] = "Added task item."
   		redirect_to task_task_items_path
@@ -23,14 +25,14 @@ class TaskItemsController < ApplicationController
   end
 
   def edit
-    @task = TodoList.find(params[:task_id])
-    @task_item = @task.task_items.find(params[:task_id])
+    @task = Task.find(params[:task_id])
+    @task_item = @task.task_items.find(params[:id])
   end
 
   def update
-    @task = TodoList.find(params[:task_id])
-    @task_item = @task.task_items.find(params[:task_id])
-    if @task_item.update_attributes(task_items_params)
+    @task = Task.find(params[:task_id])
+    @task_item = @task.task_items.find(params[:id])
+    if @task_item.update_attributes(task_item_params)
       flash[:success] = "Saved todo task item."
       redirect_to task_task_items_path
     else
@@ -40,8 +42,9 @@ class TaskItemsController < ApplicationController
   end
 
   def destroy
+    @task =  Task.find(params[:task_id])
     @task_item = @task.task_items.find(params[:id])
-    if @task_item.udestroy
+    if @task_item.destroy
       flash[:success] = "Todo Task was deleted."
     else
       flash[:error] = "That todo task could not be deleted."
@@ -64,7 +67,7 @@ class TaskItemsController < ApplicationController
   private
 
   def find_task
-    @task =TaskList.find(params[:task_id])
+    @task = TaskItem.find(params[:task_id])
   end
 
   def task_item_params

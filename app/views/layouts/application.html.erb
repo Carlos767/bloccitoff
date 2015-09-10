@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="container-fluid">
 	 <div class="pull-right user-info">
            <% if current_user %>
              Hello <%= current_user.email %>! <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
@@ -16,11 +16,7 @@
            <% end %>
      </div>
 
-	<% flash.each do |type, message| %>
-	<div class="alert flash <% type %>">
-		<%= message %>
-	</div>
-	<% end %>
+
 
 <%= yield %>
 

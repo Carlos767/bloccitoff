@@ -10,13 +10,14 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @task_items = @task.task_items
   end
 
   def back
   end
   # GET /tasks/new
   def new
-    @task = Task.task_items.new
+    @task = Task.new
   end
 
   # GET /tasks/1/edit
@@ -27,7 +28,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.expires_at = Time.now + 7.days
+    #@task.expires_at = Time.now + 7.days
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
@@ -64,12 +65,12 @@ class TasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_task
       @task = Task.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    
     def task_params
       params.require(:task).permit(:title, :description)
     end

@@ -22,5 +22,6 @@
 </ul>
 <% end %>
 
+<%= render partial: "task_items/form", locals: {task: @task, task_item: TaskItem.new} %>
 <%= link_to 'Change', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

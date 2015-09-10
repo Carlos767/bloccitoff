@@ -1,4 +1,2 @@
-<h1><%= @task.title %> - Editing Todo List Task</h1>
-<%= form_for [@task, @task_item] do |form| %>
-  <%= render partial: form %>
-<% end %>
+
+  <%= render partial: 'form', locals: {task: @task, task_item: @task_item} %>
